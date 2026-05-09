@@ -17,8 +17,8 @@
       --muted: #567290;
       --line: #c6dff6;
       --primary: #4da9ff;
-      --primary-soft: #d9ecff;
-      --secondary: #7ec3ff;
+      --primary-soft: color-mix(in srgb, var(--primary) 88%, white 92%);
+      --secondary: color-mix(in srgb, var(--primary) 30%, white 70%);
       --danger: #d94f5c;
       --success: #1f9d72;
       --notification-edge: #0f3d8f;
@@ -27,6 +27,8 @@
       --radius-card: 16px;
       --radius-pill: 999px;
       --sidebar-width: 260px;
+      --global-radius: 4px;
+      --leaf-radius: 18px 0 18px 0;
       --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
@@ -67,7 +69,7 @@
       top: 0;
       width: var(--sidebar-width);
       height: 100vh;
-      background: linear-gradient(180deg, #4da9ff 0%, #2c7fd4 100%);
+      background: linear-gradient(180deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 55%, black 20%) 100%);
       color: #f7ffff;
       padding: 28px 20px;
       display: flex;
@@ -129,6 +131,147 @@
       background: rgba(255, 255, 255, 0.2);
       transform: translateY(-2px);
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Settings panel inside sidebar */
+    .settings-panel {
+      margin-top: 12px;
+      padding: 12px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .settings-panel.open {
+      display: flex;
+    }
+
+    .settings-toggle {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .settings-panel h4 {
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: rgba(255,255,255,0.95);
+    }
+
+    .swatches {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.14);
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.2);
+    }
+
+    .swatch.selected {
+      outline: 3px solid rgba(255,255,255,0.18);
+      transform: scale(1.06);
+    }
+
+    .btn-style-options {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-style-option {
+      padding: 6px 8px;
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .btn-style-option.selected {
+      box-shadow: 0 8px 22px rgba(3,9,28,0.28);
+      transform: translateY(-2px);
+    }
+
+    /* Button/card global radius; controls most UI boxes */
+    .btn.rounded { border-radius: 28px; }
+
+    .btn.leaf { border-radius: var(--leaf-radius); }
+
+    /* Global application of selected style to buttons and common box-like elements */
+    body.btn-style-rounded {
+      --global-radius: 28px;
+    }
+
+    body.btn-style-default {
+      --global-radius: 4px;
+    }
+
+    body.btn-style-leaf {
+      --global-radius: 4px;
+      --leaf-radius: 18px 0 18px 0;
+    }
+
+    /* Apply the global radius to buttons and many container elements */
+    button,
+    a.button,
+    .btn,
+    .btn-sm,
+    .btn-primary,
+    .btn-secondary,
+    .btn-outline,
+    .primary,
+    .card,
+    .product-card,
+    .category-card,
+    .category-copy,
+    .hero-stat,
+    .section,
+    .section-head,
+    .modal-body,
+    .cart-drawer,
+    .cart-header,
+    .sidebar-footer,
+    .filters-sidebar,
+    .filter-pill,
+    .featured-rail,
+    .featured-rail-wrap,
+    article,
+    .toast,
+    .menu button,
+    .search-form input,
+    input,
+    textarea {
+      border-radius: var(--global-radius) !important;
+    }
+
+    /* Leaf style: when active, prefer asymmetric radius for primary buttons and key cards */
+    body.btn-style-leaf .btn-primary,
+    body.btn-style-leaf .primary,
+    body.btn-style-leaf .product-card,
+    body.btn-style-leaf .category-card,
+    body.btn-style-leaf .card,
+    body.btn-style-leaf .modal-body,
+    body.btn-style-leaf .cart-drawer {
+      border-radius: var(--leaf-radius) !important;
+    }
+
+    /* Accent outline for boxes to show primary color when changed */
+    button, .btn, .card, .product-card, .category-card, .modal-body, .section {
+      outline: 0;
     }
 
     .sidebar-footer {
@@ -298,7 +441,7 @@
 
     .btn {
       border: none;
-      border-radius: var(--radius-pill);
+      border-radius: 4px;
       padding: 12px 18px;
       font-weight: 700;
       cursor: pointer;
@@ -1034,6 +1177,39 @@
         <button data-page="contact">Contact</button>
       </nav>
 
+      <button class="settings-toggle" id="settingsToggle">Settings ▾</button>
+
+      <div class="settings-panel" id="settingsPanel">
+        <h4>Settings</h4>
+        <div>
+          <div style="font-size:0.82rem;margin-bottom:6px;opacity:0.95">Theme</div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn-style-option" data-theme="light" id="themeLight">Light</button>
+            <button class="btn-style-option" data-theme="dark" id="themeDark">Dark</button>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:0.82rem;margin-bottom:6px;opacity:0.95">Accent color</div>
+          <div class="swatches" id="fontSwatches">
+            <button class="swatch" data-color="#4da9ff" title="Default blue" style="background:#4da9ff"></button>
+            <button class="swatch" data-color="#0b5cff" title="Deep blue" style="background:#0b5cff"></button>
+            <button class="swatch" data-color="#00a676" title="Teal" style="background:#00a676"></button>
+            <button class="swatch" data-color="#7c4dff" title="Purple" style="background:#7c4dff"></button>
+            <button class="swatch" data-color="#ff8a00" title="Orange" style="background:#ff8a00"></button>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:0.82rem;margin-bottom:6px;opacity:0.95">Button style</div>
+          <div class="btn-style-options" id="buttonStyleWrap">
+            <button class="btn-style-option" data-style="default">Default</button>
+            <button class="btn-style-option" data-style="rounded">Rounded</button>
+            <button class="btn-style-option" data-style="leaf">Leaf</button>
+          </div>
+        </div>
+      </div>
+
       <div class="sidebar-footer">
         Built for students, interns, and future professionals. Explore specialized supplies tailored to every faculty path.
       </div>
@@ -1225,14 +1401,48 @@
       "Pharmacy": "assets/images/Pharmacy.jpg"
     };
 
+    const GENERATOR_BATCH_SIZE = 12;
+    const GENERATOR_PREFIXES = ["Smart", "Pro", "Advanced", "Compact", "Elite", "Campus", "Prime", "Flex"];
+    const GENERATOR_SUFFIXES = ["Kit", "Edition", "Bundle", "Series", "Pack", "Lab Set", "Model", "Collection"];
+    const GENERATOR_MODELS = ["X1", "Neo", "Max", "Lite", "Edge", "S2", "360", "Plus"];
+
+    const GENERATOR_CATEGORY_TERMS = {
+      "Physical Therapy": ["Therapy Band", "Rehab Ball", "Posture Trainer", "Mobility Strap", "Balance Board"],
+      "Nursing": ["Clinical Kit", "Vitals Notebook", "Nurse Utility Pouch", "Drug Reference Cards", "Ward Organizer"],
+      "Engineering": ["Sensor Module", "Toolkit", "Circuit Set", "Drafting Pack", "Lab Meter"],
+      "Computers & AI": ["Coding Keyboard", "ML Notebook", "Dev Stand", "Data Toolkit", "AI Study Pack"],
+      "Business Administration": ["Finance Planner", "Casebook", "Presentation Set", "Office Bundle", "Strategy Deck"],
+      "Applied Health Sciences Technology": ["Diagnostic Set", "Lab Essentials", "Clinical Tech Pack", "Sample Kit", "Health Tracker"],
+      "Pharmacy": ["Pharma Cards", "Interaction Atlas", "Drug Dosage Guide", "Lab Handbook", "Pocket Reference"],
+      General: ["Student Essentials", "Study Bundle", "Campus Pack", "Academic Toolkit", "Learning Set"]
+    };
+
+    const GENERATOR_IMAGE_QUERY_TERMS = {
+      "Physical Therapy": "physiotherapy,rehabilitation,fitness,equipment",
+      "Nursing": "nursing,medical,clinic,healthcare",
+      "Engineering": "engineering,electronics,tools,technology",
+      "Computers & AI": "laptop,keyboard,computer,workspace",
+      "Business Administration": "office,business,notebook,workspace",
+      "Applied Health Sciences Technology": "laboratory,diagnostic,science,medical",
+      "Pharmacy": "pharmacy,medicine,lab,healthcare",
+      General: "product,study,education,tools"
+    };
+
     const state = {
       currentPage: "home",
       products: [],
       currentCategory: null,
+      currentSearch: "",
       currentSource: "-",
       cart: JSON.parse(localStorage.getItem("rst-cart") || "[]"),
       featured: [],
-      selectedProduct: null
+      selectedProduct: null,
+      productGenerator: {
+        seeds: [],
+        sequence: 0,
+        loaded: [],
+        isLoading: false
+      }
     };
 
     const el = {
@@ -1269,6 +1479,12 @@
       cartItemsCount: document.getElementById("cartItemsCount"),
       cartTotal: document.getElementById("cartTotal"),
       checkoutBtn: document.getElementById("checkoutBtn"),
+      settingsToggle: document.getElementById("settingsToggle"),
+      settingsPanel: document.getElementById("settingsPanel"),
+      fontSwatches: document.getElementById("fontSwatches"),
+      buttonStyleWrap: document.getElementById("buttonStyleWrap"),
+      themeLight: document.getElementById("themeLight"),
+      themeDark: document.getElementById("themeDark"),
       toastWrap: document.getElementById("toastWrap")
     };
 
@@ -1406,6 +1622,121 @@
       }).join("");
     }
 
+    function slugify(value) {
+      return String(value || "item")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "") || "item";
+    }
+
+    function pickGeneratedImage(theme, seed, sequenceIndex) {
+      const seedToken = slugify(`${theme}-${seed.id || seed.name}-${sequenceIndex}`);
+      const localImage = categoryIcons[theme] || categoryIcons[seed.category] || "assets/images/rst_logo.png";
+      const query = GENERATOR_IMAGE_QUERY_TERMS[theme] || GENERATOR_IMAGE_QUERY_TERMS.General;
+      const unsplash = `https://source.unsplash.com/640x420/?${encodeURIComponent(query)}&sig=${sequenceIndex + 11}`;
+      const picsum = `https://picsum.photos/seed/${seedToken}/640/420`;
+      const imageVariants = [seed.image, unsplash, picsum, localImage].filter(Boolean);
+      return imageVariants[sequenceIndex % imageVariants.length];
+    }
+
+    function pickGeneratedTerm(theme, sequenceIndex) {
+      const terms = GENERATOR_CATEGORY_TERMS[theme] || GENERATOR_CATEGORY_TERMS.General;
+      return terms[sequenceIndex % terms.length];
+    }
+
+    function buildLocalSeedProducts(category, search) {
+      const theme = category || "General";
+      const terms = GENERATOR_CATEGORY_TERMS[theme] || GENERATOR_CATEGORY_TERMS.General;
+      return terms.map((term, index) => ({
+        id: `local-${slugify(theme)}-${index + 1}`,
+        name: search ? `${search} ${term}` : `${term} Starter`,
+        description: `A generated ${theme} product for student use.`,
+        category: theme === "General" ? "Computers & AI" : theme,
+        price: 350 + ((index * 137) % 1900),
+        image: pickGeneratedImage(theme, { id: `local-${index}`, name: term, category: theme }, index)
+      }));
+    }
+
+    function initializeProductGenerator(seedProducts, { category = "", search = "" } = {}) {
+      const normalizedSeeds = (seedProducts || []).map((item, index) => {
+        const theme = category || item.category || "General";
+        return {
+          id: item.id || `seed-${index}`,
+          name: item.name || "Study Product",
+          description: item.description || "Generated student product.",
+          category: item.category || category || "Computers & AI",
+          price: Number(item.price) || 499,
+          image: item.image || pickGeneratedImage(theme, item, index)
+        };
+      });
+
+      state.productGenerator.seeds = normalizedSeeds.length ? normalizedSeeds : buildLocalSeedProducts(category, search);
+      state.productGenerator.sequence = 0;
+      state.productGenerator.loaded = [];
+      state.productGenerator.isLoading = false;
+    }
+
+    function generateProductFromSeed(seed, sequenceIndex, context = {}) {
+      const category = context.category || seed.category || "Computers & AI";
+      const term = pickGeneratedTerm(category, sequenceIndex);
+      const prefix = GENERATOR_PREFIXES[sequenceIndex % GENERATOR_PREFIXES.length];
+      const suffix = GENERATOR_SUFFIXES[sequenceIndex % GENERATOR_SUFFIXES.length];
+      const model = GENERATOR_MODELS[(sequenceIndex + 3) % GENERATOR_MODELS.length];
+      const displayName = `${prefix} ${term} ${suffix} ${model}`;
+      const basePrice = Number(seed.price) || 500;
+      const variation = ((sequenceIndex % 11) - 5) * 35;
+
+      return {
+        id: `gen-${slugify(seed.id || seed.name)}-${sequenceIndex}`,
+        name: displayName,
+        description: seed.description || `Generated ${category} product for academic workflows.`,
+        category,
+        price: Math.max(120, basePrice + variation),
+        image: pickGeneratedImage(category, seed, sequenceIndex)
+      };
+    }
+
+    function loadMoreProducts({ reset = false } = {}) {
+      const generator = state.productGenerator;
+      if (generator.isLoading || !generator.seeds.length) {
+        return;
+      }
+
+      if (reset) {
+        generator.loaded = [];
+        generator.sequence = 0;
+      }
+
+      generator.isLoading = true;
+      const batch = [];
+
+      for (let i = 0; i < GENERATOR_BATCH_SIZE; i += 1) {
+        const sequenceIndex = generator.sequence + i;
+        const seed = generator.seeds[sequenceIndex % generator.seeds.length];
+        batch.push(generateProductFromSeed(seed, sequenceIndex, {
+          category: state.currentCategory || seed.category || "General",
+          search: state.currentSearch
+        }));
+      }
+
+      generator.sequence += GENERATOR_BATCH_SIZE;
+      generator.loaded = generator.loaded.concat(batch);
+      state.products = generator.loaded.slice();
+      generator.isLoading = false;
+      renderProducts();
+    }
+
+    function maybeLoadMoreProductsOnScroll() {
+      if (state.currentPage !== "products") {
+        return;
+      }
+      const threshold = 320;
+      const remaining = document.documentElement.scrollHeight - (window.scrollY + window.innerHeight);
+      if (remaining <= threshold) {
+        loadMoreProducts();
+      }
+    }
+
     function renderProducts() {
       if (!state.products.length) {
         el.productsGrid.innerHTML = "<p class='muted'>No products found for this query.</p>";
@@ -1472,6 +1803,7 @@
       }
 
       state.currentCategory = category || null;
+      state.currentSearch = search || "";
       el.productsTitle.textContent = search ? `Search Results for "${search}"` : `${category} Products`;
       highlightActivePill(category || "");
 
@@ -1483,25 +1815,28 @@
           throw new Error(data.error || "Unable to load products.");
         }
 
-        state.products = data.products || [];
+        const seedProducts = data.products || [];
         state.currentSource = data.source || "-";
-        el.sourceBadge.textContent = `Data Source: ${state.currentSource.toUpperCase()}`;
+        el.sourceBadge.textContent = `Data Source: ${state.currentSource.toUpperCase()} + GENERATOR`;
 
         if (data.warning) {
           setError(data.warning);
         }
 
-        renderProducts();
+        initializeProductGenerator(seedProducts, { category, search });
+        loadMoreProducts({ reset: true });
+        maybeLoadMoreProductsOnScroll();
 
         if (search) {
           toast("Search loaded", "success");
         }
       } catch (error) {
-        state.products = [];
-        el.sourceBadge.textContent = "Data Source: -";
-        setError(error.message || "Failed to fetch products.");
-        renderProducts();
-        toast("Fetching products failed", "error");
+        state.currentSource = "generator";
+        el.sourceBadge.textContent = "Data Source: GENERATOR";
+        setError(error.message || "Live API unavailable. Showing generated products.");
+        initializeProductGenerator([], { category, search });
+        loadMoreProducts({ reset: true });
+        toast("Using generated catalog", "success");
       }
     }
 
@@ -1679,7 +2014,17 @@
           document.body.removeAttribute("data-theme");
           localStorage.setItem("rst-theme", "light");
         }
+        // sync settings panel buttons
+        updateThemeButtons();
       });
+
+      // settings toggle dropdown
+      if (el.settingsToggle && el.settingsPanel) {
+        el.settingsToggle.addEventListener("click", () => {
+          const open = el.settingsPanel.classList.toggle("open");
+          el.settingsToggle.textContent = open ? "Settings ▴" : "Settings ▾";
+        });
+      }
 
       el.browseCategoriesBtn.addEventListener("click", () => {
         document.getElementById("homeCategoryGrid").scrollIntoView({ behavior: "smooth" });
@@ -1695,6 +2040,89 @@
           el.cartDrawer.classList.remove("open");
         }
       });
+
+      window.addEventListener("scroll", maybeLoadMoreProductsOnScroll, { passive: true });
+    }
+
+    function setAccentColor(color) {
+      if (!color) return;
+      document.documentElement.style.setProperty("--primary", color);
+      localStorage.setItem("rst-font-color", color);
+      // visually mark selected swatch
+      applySwatchSelection(color);
+    }
+
+    function setButtonStyle(style) {
+      document.body.classList.remove("btn-style-default", "btn-style-rounded", "btn-style-leaf");
+      document.body.classList.add(`btn-style-${style || "default"}`);
+      localStorage.setItem("rst-button-style", style || "default");
+      applyButtonStyleSelection(style || "default");
+    }
+
+    function applySwatchSelection(color) {
+      if (!el.fontSwatches) return;
+      el.fontSwatches.querySelectorAll(".swatch").forEach((s) => {
+        s.classList.toggle("selected", s.dataset.color === color);
+      });
+    }
+
+    function applyButtonStyleSelection(style) {
+      if (!el.buttonStyleWrap) return;
+      el.buttonStyleWrap.querySelectorAll(".btn-style-option").forEach((b) => {
+        b.classList.toggle("selected", b.dataset.style === (style || "default"));
+      });
+      // set global body class
+      document.body.classList.remove("btn-style-default", "btn-style-rounded", "btn-style-leaf");
+      document.body.classList.add(`btn-style-${style || "default"}`);
+      // update existing buttons: rounded applies to all buttons, leaf applies only to primary buttons
+      document.querySelectorAll(".btn").forEach((btn) => {
+        btn.classList.remove("rounded", "leaf");
+        if (style === "rounded") btn.classList.add("rounded");
+        if (style === "leaf" && btn.classList.contains("btn-primary")) btn.classList.add("leaf");
+      });
+    }
+
+    function updateThemeButtons() {
+      const isDark = document.body.getAttribute("data-theme") === "dark";
+      if (el.themeLight && el.themeDark) {
+        el.themeLight.classList.toggle("selected", !isDark);
+        el.themeDark.classList.toggle("selected", isDark);
+      }
+    }
+
+    function initSettings() {
+      // Accent color
+      const savedColor = localStorage.getItem("rst-font-color") || getComputedStyle(document.documentElement).getPropertyValue("--primary").trim();
+      setAccentColor(savedColor);
+
+      // Button style
+      const savedBtnStyle = localStorage.getItem("rst-button-style") || "default";
+      setButtonStyle(savedBtnStyle);
+
+      // Theme buttons
+      updateThemeButtons();
+
+      // Swatch click
+      if (el.fontSwatches) {
+        el.fontSwatches.addEventListener("click", (e) => {
+          const s = e.target.closest(".swatch");
+          if (!s) return;
+          setAccentColor(s.dataset.color);
+        });
+      }
+
+      // Button style click
+      if (el.buttonStyleWrap) {
+        el.buttonStyleWrap.addEventListener("click", (e) => {
+          const b = e.target.closest(".btn-style-option");
+          if (!b) return;
+          setButtonStyle(b.dataset.style);
+        });
+      }
+
+      // Theme quick buttons in the settings panel
+      if (el.themeLight) el.themeLight.addEventListener("click", () => { document.body.removeAttribute("data-theme"); localStorage.setItem("rst-theme","light"); updateThemeButtons(); });
+      if (el.themeDark) el.themeDark.addEventListener("click", () => { document.body.setAttribute("data-theme","dark"); localStorage.setItem("rst-theme","dark"); updateThemeButtons(); });
     }
 
     function autoScrollFeatured() {
@@ -1721,6 +2149,7 @@
 
     function init() {
       initTheme();
+      initSettings();
       renderCategoryCards();
       updateCartUI();
       setupFakeOrderHistory();

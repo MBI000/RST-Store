@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RST Store Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/admin.css" />
+</head>
+<body>
+  <main class="admin-shell">
+    <header class="admin-header">
+      <h1>RST Store Admin Panel</h1>
+      <div class="role-switcher">
+        <label for="roleSelect">Role</label>
+        <select id="roleSelect">
+          <option value="customer">Customer</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+    </header>
+
+    <p id="roleNote" class="muted"></p>
+
+    <section class="cards">
+      <article class="card">
+        <h3>Total Revenue</h3>
+        <strong id="totalRevenue">0 L.E</strong>
+      </article>
+      <article class="card">
+        <h3>Total Orders</h3>
+        <strong id="totalOrders">0</strong>
+      </article>
+      <article class="card">
+        <h3>Best Seller</h3>
+        <strong id="bestSeller">-</strong>
+      </article>
+      <article class="card">
+        <h3>Shipping Status</h3>
+        <strong id="shippingSummary">Delivered: 0 | Shipped: 0 | Pending: 0</strong>
+      </article>
+    </section>
+
+    <section class="layout">
+      <article class="panel">
+        <h2 id="formTitle">Add New Product</h2>
+        <form id="productForm" class="form-grid">
+          <input id="productId" type="hidden" />
+
+          <label>Name</label>
+          <input id="productName" type="text" required />
+
+          <label>Price (L.E)</label>
+          <input id="productPrice" type="number" min="0" required />
+
+          <label>Category</label>
+          <select id="productCategory"></select>
+
+          <label>Stock</label>
+          <input id="productStock" type="number" min="0" required />
+
+          <label>Image URL</label>
+          <input id="productImage" type="url" required />
+
+          <label>Description</label>
+          <textarea id="productDescription" rows="4" required></textarea>
+
+          <div class="actions">
+            <button type="submit">Save Product</button>
+            <button type="button" id="clearEditBtn" class="ghost">Clear</button>
+          </div>
+        </form>
+        <p id="syncHint" class="muted">Product updates are stored locally and can be read by the storefront.</p>
+      </article>
+
+      <article class="panel">
+        <h2>Inventory</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="productsBody"></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel">
+      <h2>Order Management</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Total</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="ordersBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>

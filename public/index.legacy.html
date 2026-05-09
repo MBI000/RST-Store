@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RST Store</title>
+  <link rel="icon" type="image/png" href="assets/images/rst_logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/base.css" />
+  <link rel="stylesheet" href="styles/home.css" />
+  <link rel="stylesheet" href="styles/products.css" />
+  <link rel="stylesheet" href="styles/profile.css" />
+  <link rel="stylesheet" href="styles/contact.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <img class="brand-mark" src="assets/images/rst_logo.png" alt="RST Store logo" />
+        <div class="brand-text">
+          <h1>RST Store</h1>
+          <p>UniPlanner Commerce</p>
+        </div>
+      </div>
+
+      <nav class="menu" id="menuNav">
+        <button class="active" data-page="home">Home</button>
+        <button data-page="products">Products</button>
+        <button data-page="profile">Profile</button>
+        <button data-page="contact">Contact</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        Built for students, interns, and future professionals. Explore specialized supplies tailored to every faculty path.
+        <div style="margin-top: 10px;">
+          <a href="admin.html" style="color: #f3fbff; font-weight: 700; text-decoration: underline;">Open Admin Panel</a>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content-wrap">
+      <header class="topbar">
+        <button class="mobile-nav-toggle" id="mobileNavToggle">Menu</button>
+        <form class="search-form" id="searchForm">
+          <input id="searchInput" type="text" placeholder="Search store products for your studies..." />
+          <button type="submit">Search</button>
+        </form>
+        <button class="theme-toggle" id="themeToggle" type="button">Theme</button>
+        <button class="cart-button" id="cartToggle" type="button">Cart <span class="cart-count" id="cartCount">0</span></button>
+      </header>
+
+      <section id="home" class="page active">
+        <div class="hero">
+          <div>
+            <h2>University Shopping, Tailored by Major</h2>
+            <p>RST Store maps academic categories to live store products through a secure backend. Browse specialized tools, books, and essentials with a premium UniPlanner-like experience.</p>
+            <div class="hero-actions">
+              <button class="btn btn-primary" id="browseCategoriesBtn">Browse Categories</button>
+              <button class="btn btn-outline" id="openProductsBtn">Open Product Listing</button>
+            </div>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <strong>7+</strong>
+              <span>Academic Categories</span>
+            </div>
+            <div class="hero-stat">
+              <strong>Live</strong>
+              <span>API-backed Catalog</span>
+            </div>
+            <div class="hero-stat">
+              <strong>Fast</strong>
+              <span>Fallback-ready APIs</span>
+            </div>
+            <div class="hero-stat">
+              <strong>Smooth</strong>
+              <span>Animated UX System</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-head">
+            <h3>University Categories</h3>
+            <p>Click any category to fetch mapped products.</p>
+          </div>
+          <div class="category-grid" id="homeCategoryGrid"></div>
+        </div>
+
+        <div class="section">
+          <div class="section-head">
+            <h3>Featured Products</h3>
+            <p>A curated mix from multiple categories.</p>
+          </div>
+          <div class="featured-rail-wrap">
+            <div class="featured-rail" id="featuredRail"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="products" class="page">
+        <div class="section-head">
+          <h3 id="productsTitle">Product Listing</h3>
+        </div>
+
+        <div class="filters">
+          <div class="pill-row" id="filterPills"></div>
+          <div class="error-banner" id="errorBanner"></div>
+        </div>
+
+        <div class="grid" id="productsGrid"></div>
+      </section>
+
+      <section id="profile" class="page">
+        <div class="section-head">
+          <h3>Student Profile</h3>
+          <p>Track your fake order history by academic category.</p>
+        </div>
+
+        <div class="profile-grid">
+          <div class="order-group" id="orderHistory"></div>
+          <div class="profile-card">
+            <h4>Account Snapshot</h4>
+            <p class="muted">Demo profile inspired by UniPlanner dashboard cards.</p>
+            <div class="profile-list">
+              <div>Name: Mahmoud Basem</div>
+              <div>Faculty Focus: Computers & AI</div>
+              <div>Membership: Premium Student</div>
+              <div>Preferred Currency: L.E</div>
+              <div>Saved Addresses: 2</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="page">
+        <div class="section-head">
+          <h3>Contact RST Store</h3>
+          <p>Need a specific study tool? Send your request.</p>
+        </div>
+        <div class="contact-card">
+          <h4>Support Form</h4>
+          <p class="muted">Replies are typically sent within 24 hours.</p>
+          <form class="contact-form" id="contactForm">
+            <div class="field">
+              <label for="contactName">Name</label>
+              <input id="contactName" type="text" required />
+            </div>
+            <div class="field">
+              <label for="contactEmail">Email</label>
+              <input id="contactEmail" type="email" required />
+            </div>
+            <div class="field">
+              <label for="contactMessage">Message</label>
+              <textarea id="contactMessage" required></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Send Message</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-overlay" id="productModalOverlay">
+    <article class="modal" id="productModal" role="dialog" aria-modal="true" aria-label="Product Details">
+      <div class="modal-grid">
+        <img id="modalImage" src="" alt="Product" />
+        <div class="modal-body">
+          <button class="modal-close" id="closeModalBtn" type="button">x</button>
+          <span class="muted" id="modalCategory">Category</span>
+          <h3 id="modalName"></h3>
+          <p class="muted" id="modalDescription"></p>
+          <strong class="price-tag" id="modalPrice"></strong>
+          <button class="btn btn-primary" id="modalAddToCartBtn" type="button">Add to Cart</button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>Cart</h3>
+      <button class="btn-sm" id="closeCartBtn" type="button">Close</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-total">
+      <div class="cart-total-row"><span>Items</span><span id="cartItemsCount">0</span></div>
+      <div class="cart-total-row"><span>Total</span><span id="cartTotal">0 L.E</span></div>
+      <button class="btn btn-primary" type="button" id="checkoutBtn">Checkout</button>
+    </div>
+  </aside>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <script>
+    const CATEGORIES = [
+      "Physical Therapy",
+      "Nursing",
+      "Engineering",
+      "Computers & AI",
+      "Business Administration",
+      "Applied Health Sciences Technology",
+      "Pharmacy"
+    ];
+
+    const categoryHints = {
+      "Physical Therapy": "Rehab tools, physiotherapy equipment",
+      "Nursing": "Kits, scrubs, and medical supplies",
+      "Engineering": "Tooling and electronics kits",
+      "Computers & AI": "Laptops, AI books, keyboards",
+      "Business Administration": "Business books and office gear",
+      "Applied Health Sciences Technology": "Lab and diagnostic essentials",
+      "Pharmacy": "Pharmacy references and lab tools"
+    };
+
+    const categoryIcons = {
+      "Physical Therapy": "assets/images/Physical%20Therapy.jpg",
+      "Nursing": "assets/images/Nursing.jpg",
+      "Engineering": "assets/images/Enineering.jpg",
+      "Computers & AI": "assets/images/CS%26AI.jpg",
+      "Business Administration": "assets/images/Business%20Administration.jpg",
+      "Applied Health Sciences Technology": "assets/images/Applied%20Health%20Science%20Technology.jpg",
+      "Pharmacy": "assets/images/Pharmacy.jpg"
+    };
+
+    const GENERATOR_BATCH_SIZE = 12;
+    const GENERATOR_PREFIXES = ["Smart", "Pro", "Advanced", "Compact", "Elite", "Campus", "Prime", "Flex"];
+    const GENERATOR_SUFFIXES = ["Kit", "Edition", "Bundle", "Series", "Pack", "Lab Set", "Model", "Collection"];
+    const GENERATOR_TRAITS = ["for students", "for practical labs", "for daily study", "for projects", "for advanced use"];
+    const GENERATOR_MODELS = ["X1", "Neo", "Max", "Lite", "Edge", "S2", "360", "Plus"];
+
+    const GENERATOR_CATEGORY_TERMS = {
+      "Physical Therapy": ["Mobility Trainer", "Therapy Ball Set", "Rehab Resistance Pack", "Posture Corrector", "Recovery Roller"],
+      "Nursing": ["Clinical Practice Kit", "Vitals Essentials", "Ward Tools Set", "Shift Organizer", "Patient Care Bundle"],
+      "Engineering": ["Prototype Board", "Circuit Builder", "Measurement Toolkit", "Lab Components Pack", "Drafting Companion"],
+      "Computers & AI": ["Coding Keyboard", "Developer Laptop Stand", "ML Notebook", "AI Study Bundle", "Algorithm Reference"],
+      "Business Administration": ["Strategy Workbook", "Planner Portfolio", "Presentation Toolkit", "Desk Organizer", "Management Casebook"],
+      "Applied Health Sciences Technology": ["Diagnostics Starter", "Lab Sampling Kit", "Analysis Module", "Health Tech Toolkit", "Clinical Instruments Set"],
+      "Pharmacy": ["Drug Review Atlas", "Compounding Set", "Clinical Guide", "Pharma Lab Pack", "Interaction Handbook"],
+      General: ["Student Essentials", "Campus Utility Set", "Learning Companion", "Study Bundle", "Daily Academic Kit"]
+    };
+
+    const GENERATOR_IMAGE_QUERY_TERMS = {
+      "Physical Therapy": "physiotherapy,rehabilitation,fitness,equipment",
+      "Nursing": "nursing,medical,clinic,healthcare",
+      "Engineering": "engineering,electronics,tools,technology",
+      "Computers & AI": "laptop,keyboard,computer,workspace",
+      "Business Administration": "office,business,notebook,workspace",
+      "Applied Health Sciences Technology": "laboratory,diagnostic,science,medical",
+      "Pharmacy": "pharmacy,medicine,lab,healthcare",
+      General: "product,study,education,tools"
+    };
+
+    const state = {
+      currentPage: "home",
+      products: [],
+      currentCategory: null,
+      currentSearch: "",
+      currentSource: "-",
+      cart: JSON.parse(localStorage.getItem("rst-cart") || "[]"),
+      featured: [],
+      selectedProduct: null,
+      productGenerator: {
+        seeds: [],
+        sequence: 0,
+        loading: false
+      }
+    };
+
+    const el = {
+      sidebar: document.getElementById("sidebar"),
+      menuNav: document.getElementById("menuNav"),
+      mobileNavToggle: document.getElementById("mobileNavToggle"),
+      searchForm: document.getElementById("searchForm"),
+      searchInput: document.getElementById("searchInput"),
+      themeToggle: document.getElementById("themeToggle"),
+      cartToggle: document.getElementById("cartToggle"),
+      cartCount: document.getElementById("cartCount"),
+      homeCategoryGrid: document.getElementById("homeCategoryGrid"),
+      featuredRail: document.getElementById("featuredRail"),
+      productsTitle: document.getElementById("productsTitle"),
+      filterPills: document.getElementById("filterPills"),
+      productsGrid: document.getElementById("productsGrid"),
+      errorBanner: document.getElementById("errorBanner"),
+      orderHistory: document.getElementById("orderHistory"),
+      contactForm: document.getElementById("contactForm"),
+      browseCategoriesBtn: document.getElementById("browseCategoriesBtn"),
+      openProductsBtn: document.getElementById("openProductsBtn"),
+      modalOverlay: document.getElementById("productModalOverlay"),
+      modalImage: document.getElementById("modalImage"),
+      modalCategory: document.getElementById("modalCategory"),
+      modalName: document.getElementById("modalName"),
+      modalDescription: document.getElementById("modalDescription"),
+      modalPrice: document.getElementById("modalPrice"),
+      modalAddToCartBtn: document.getElementById("modalAddToCartBtn"),
+      closeModalBtn: document.getElementById("closeModalBtn"),
+      cartDrawer: document.getElementById("cartDrawer"),
+      closeCartBtn: document.getElementById("closeCartBtn"),
+      cartItems: document.getElementById("cartItems"),
+      cartItemsCount: document.getElementById("cartItemsCount"),
+      cartTotal: document.getElementById("cartTotal"),
+      checkoutBtn: document.getElementById("checkoutBtn"),
+      toastWrap: document.getElementById("toastWrap")
+    };
+
+    function formatLE(value) {
+      return `${Number(value || 0).toLocaleString("en-US")} L.E`;
+    }
+
+    function toast(message, type = "success") {
+      const node = document.createElement("div");
+      node.className = `toast ${type}`;
+      node.textContent = message;
+      el.toastWrap.appendChild(node);
+      setTimeout(() => {
+        node.style.opacity = "0";
+        node.style.transform = "translateX(20px)";
+        setTimeout(() => node.remove(), 280);
+      }, 2600);
+    }
+
+    function persistCart() {
+      localStorage.setItem("rst-cart", JSON.stringify(state.cart));
+    }
+
+    function updateCartUI() {
+      const itemsCount = state.cart.reduce((sum, item) => sum + item.qty, 0);
+      const total = state.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      el.cartCount.textContent = itemsCount;
+      el.cartItemsCount.textContent = itemsCount;
+      el.cartTotal.textContent = formatLE(total);
+
+      if (!state.cart.length) {
+        el.cartItems.innerHTML = "<p class='muted'>Your cart is empty.</p>";
+        return;
+      }
+
+      el.cartItems.innerHTML = state.cart.map((item) => {
+        return `
+          <article class="cart-item">
+            <img src="${item.image}" alt="${item.name}" />
+            <div>
+              <h5>${item.name}</h5>
+              <small>${formatLE(item.price)} x ${item.qty}</small>
+            </div>
+            <button class="remove-btn" data-remove-id="${item.id}" type="button">Remove</button>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function addToCart(product) {
+      const existing = state.cart.find((item) => item.id === product.id);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        state.cart.push({
+          id: product.id,
+          name: product.name,
+          price: Number(product.price) || 0,
+          image: product.image,
+          qty: 1
+        });
+      }
+      persistCart();
+      updateCartUI();
+      toast("Added to cart", "success");
+    }
+
+    function removeFromCart(id) {
+      state.cart = state.cart.filter((item) => item.id !== id);
+      persistCart();
+      updateCartUI();
+      toast("Item removed", "success");
+    }
+
+    function showPage(page) {
+      state.currentPage = page;
+      document.querySelectorAll(".page").forEach((node) => {
+        node.classList.toggle("active", node.id === page);
+      });
+      document.querySelectorAll(".menu button").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.page === page);
+      });
+      el.sidebar.classList.remove("open");
+
+      if (page === "products") {
+        setTimeout(maybeLoadMoreProductsOnScroll, 50);
+      }
+    }
+
+    function renderCategoryCards() {
+      el.homeCategoryGrid.innerHTML = CATEGORIES.map((category) => {
+        const iconPath = categoryIcons[category] || "assets/images/rst_logo.png";
+        return `
+          <article class="category-card" data-category="${category}">
+            <img class="category-icon" src="${iconPath}" alt="${category} icon" loading="lazy" />
+            <div class="category-copy">
+              <h4>${category}</h4>
+              <span>${categoryHints[category]}</span>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      el.filterPills.innerHTML = CATEGORIES.map((category) => {
+        return `<button class="pill" data-filter-category="${category}" type="button">${category}</button>`;
+      }).join("");
+    }
+
+    function renderFeatured() {
+      if (!state.featured.length) {
+        el.featuredRail.innerHTML = "<p class='muted'>No featured products available now.</p>";
+        return;
+      }
+
+      el.featuredRail.innerHTML = state.featured.map((item) => {
+        return `
+          <article class="featured-card" data-product-id="${item.id}">
+            <img src="${item.image}" alt="${item.name}" />
+            <div class="featured-content">
+              <h4>${item.name}</h4>
+              <p class="muted">${item.category}</p>
+              <div class="price-tag">${formatLE(item.price)}</div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function renderSkeletons(count = 8) {
+      el.productsGrid.innerHTML = Array.from({ length: count }).map(() => {
+        return `
+          <div class="skeleton">
+            <div class="skeleton-box"></div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    const LS_PRODUCTS_KEY = "rst-products-db";
+
+    function slugify(value) {
+      return String(value || "product")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    function readAdminProducts() {
+      try {
+        const raw = localStorage.getItem(LS_PRODUCTS_KEY);
+        if (!raw) {
+          return [];
+        }
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function filterAdminProducts({ category = "", search = "" } = {}) {
+      const items = readAdminProducts();
+      const query = String(search || "").trim().toLowerCase();
+
+      return items.filter((item) => {
+        const inCategory = category ? item.category === category : true;
+        if (!inCategory) {
+          return false;
+        }
+
+        if (!query) {
+          return true;
+        }
+
+        const haystack = `${item.name || ""} ${item.description || ""} ${item.category || ""}`.toLowerCase();
+        return haystack.includes(query);
+      });
+    }
+
+    function mergeSeeds(primarySeeds, secondarySeeds) {
+      const map = new Map();
+      for (const item of [...(primarySeeds || []), ...(secondarySeeds || [])]) {
+        if (!item || !item.id) {
+          continue;
+        }
+        map.set(item.id, item);
+      }
+      return Array.from(map.values());
+    }
+
+    function pickGeneratedImage(theme, seed, sequenceIndex) {
+      const seedToken = slugify(`${theme}-${seed.id || seed.name}-${sequenceIndex}`);
+      const localImage = categoryIcons[theme] || categoryIcons[seed.category] || "assets/images/rst_logo.png";
+      const query = GENERATOR_IMAGE_QUERY_TERMS[theme] || GENERATOR_IMAGE_QUERY_TERMS.General;
+      const unsplash = `https://source.unsplash.com/640x420/?${encodeURIComponent(query)}&sig=${sequenceIndex + 11}`;
+      const picsum = `https://picsum.photos/seed/${seedToken}/640/420`;
+
+      const imageVariants = [seed.image, unsplash, picsum, localImage].filter(Boolean);
+      return imageVariants[sequenceIndex % imageVariants.length];
+    }
+
+    function pickGeneratedTerm(theme, sequenceIndex) {
+      const terms = GENERATOR_CATEGORY_TERMS[theme] || GENERATOR_CATEGORY_TERMS.General;
+      return terms[sequenceIndex % terms.length];
+    }
+
+    function buildLocalSeedProducts(category, search) {
+      const label = category || (search ? `Search ${search}` : "General");
+      const theme = category || "General";
+
+      return Array.from({ length: 8 }, (_, i) => {
+        const index = i + 1;
+        const term = pickGeneratedTerm(theme, i);
+        return {
+          id: `local-seed-${slugify(label)}-${index}`,
+          name: `${term} ${index}`,
+          price: 420 + index * 95,
+          image: pickGeneratedImage(theme, { id: `local-${index}`, name: term, category: theme }, i),
+          description: `Generated ${label.toLowerCase()} starter item for uninterrupted browsing.`,
+          category: theme
+        };
+      });
+    }
+
+    function initializeProductGenerator(seedProducts, { category = "", search = "" } = {}) {
+      const normalizedSeeds = (seedProducts || []).map((item, index) => {
+        return {
+          id: item.id || `seed-${index}`,
+          name: item.name || "Untitled Product",
+          price: Number(item.price) || 500,
+          image: item.image || categoryIcons[category] || "assets/images/rst_logo.png",
+          description: item.description || "No description available.",
+          category: item.category || category || "General"
+        };
+      });
+
+      state.productGenerator.seeds = normalizedSeeds.length ? normalizedSeeds : buildLocalSeedProducts(category, search);
+      state.productGenerator.sequence = 0;
+      state.productGenerator.loading = false;
+      state.products = [];
+    }
+
+    function generateProductFromSeed(seed, sequenceIndex) {
+      const prefix = GENERATOR_PREFIXES[sequenceIndex % GENERATOR_PREFIXES.length];
+      const suffix = GENERATOR_SUFFIXES[(sequenceIndex + 3) % GENERATOR_SUFFIXES.length];
+      const trait = GENERATOR_TRAITS[(sequenceIndex + 1) % GENERATOR_TRAITS.length];
+      const model = GENERATOR_MODELS[(sequenceIndex + 5) % GENERATOR_MODELS.length];
+      const theme = state.currentCategory || seed.category || "General";
+      const term = pickGeneratedTerm(theme, sequenceIndex);
+      const basePrice = Number(seed.price) || 500;
+      const multiplier = 0.82 + ((sequenceIndex % 9) * 0.05);
+      const price = Math.max(120, Math.round(basePrice * multiplier + ((sequenceIndex % 5) * 19)));
+
+      return {
+        id: `gen-${slugify(seed.id || seed.name)}-${sequenceIndex}`,
+        name: `${prefix} ${term} ${model} ${suffix}`,
+        price,
+        image: pickGeneratedImage(theme, seed, sequenceIndex),
+        description: `${seed.description} Variant ${sequenceIndex + 1} tuned ${trait} with category-specific setup for ${theme}.`,
+        category: theme
+      };
+    }
+
+    function getNextGeneratedBatch(count = GENERATOR_BATCH_SIZE) {
+      const seeds = state.productGenerator.seeds;
+      if (!seeds.length) {
+        return [];
+      }
+
+      const batch = [];
+      for (let i = 0; i < count; i += 1) {
+        const sequenceIndex = state.productGenerator.sequence;
+        const seed = seeds[sequenceIndex % seeds.length];
+        batch.push(generateProductFromSeed(seed, sequenceIndex));
+        state.productGenerator.sequence += 1;
+      }
+
+      return batch;
+    }
+
+    function renderProducts(products = state.products, { append = false } = {}) {
+      if (!append && !products.length) {
+        el.productsGrid.innerHTML = "<p class='muted'>No products found for this query.</p>";
+        return;
+      }
+
+      const markup = products.map((product) => {
+        return `
+          <article class="product-card">
+            <img src="${product.image}" alt="${product.name}" />
+            <div class="product-card-body">
+              <h4>${product.name}</h4>
+              <p>${product.description || "No description available."}</p>
+              <div class="product-card-footer">
+                <strong class="price-tag">${formatLE(product.price)}</strong>
+                <div class="product-actions">
+                  <button class="btn-sm" type="button" data-view-id="${product.id}">View</button>
+                  <button class="btn-sm primary" type="button" data-add-id="${product.id}">Add</button>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      if (append) {
+        el.productsGrid.insertAdjacentHTML("beforeend", markup);
+      } else {
+        el.productsGrid.innerHTML = markup;
+      }
+    }
+
+    function loadMoreProducts({ reset = false } = {}) {
+      if (state.productGenerator.loading) {
+        return;
+      }
+
+      if (reset) {
+        state.products = [];
+        el.productsGrid.innerHTML = "";
+      }
+
+      state.productGenerator.loading = true;
+      const nextBatch = getNextGeneratedBatch(GENERATOR_BATCH_SIZE);
+      const append = state.products.length > 0;
+
+      state.products.push(...nextBatch);
+      renderProducts(nextBatch, { append });
+      state.productGenerator.loading = false;
+    }
+
+    function maybeLoadMoreProductsOnScroll() {
+      if (state.currentPage !== "products") {
+        return;
+      }
+
+      const remaining = document.documentElement.scrollHeight - (window.scrollY + window.innerHeight);
+      if (remaining < 340) {
+        loadMoreProducts();
+      }
+    }
+
+    async function fetchFeatured() {
+      try {
+        const res = await fetch("/api/featured");
+        const data = await res.json();
+        state.featured = data.products || [];
+        renderFeatured();
+      } catch (error) {
+        toast("Could not load featured products", "error");
+      }
+    }
+
+    function setError(message = "") {
+      if (!message) {
+        el.errorBanner.style.display = "none";
+        el.errorBanner.textContent = "";
+        return;
+      }
+      el.errorBanner.textContent = message;
+      el.errorBanner.style.display = "block";
+    }
+
+    function highlightActivePill(category) {
+      document.querySelectorAll("[data-filter-category]").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.filterCategory === category);
+      });
+    }
+
+    async function fetchProducts({ category = "", search = "" } = {}) {
+      showPage("products");
+      setError("");
+      renderSkeletons(8);
+
+      const query = new URLSearchParams();
+      if (search) {
+        query.set("search", search);
+      } else if (category) {
+        query.set("category", category);
+      }
+
+      state.currentCategory = category || null;
+      state.currentSearch = search || "";
+      el.productsTitle.textContent = search ? `Search Results for "${search}"` : `${category} Products`;
+      highlightActivePill(category || "");
+
+      const adminProducts = filterAdminProducts({ category, search });
+
+      try {
+        const response = await fetch(`/api/products?${query.toString()}`);
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "Unable to load products.");
+        }
+
+        const apiProducts = data.products || [];
+        const seedProducts = mergeSeeds(adminProducts, apiProducts);
+        state.currentSource = data.source || "-";
+
+        if (data.warning && !/fallback dataset used/i.test(data.warning)) {
+          setError(data.warning);
+        }
+
+        initializeProductGenerator(seedProducts, { category, search });
+        loadMoreProducts({ reset: true });
+        maybeLoadMoreProductsOnScroll();
+
+        if (search) {
+          toast("Search loaded", "success");
+        }
+      } catch (error) {
+        state.currentSource = "generator";
+        setError("Live API unavailable. Showing generated products.");
+        initializeProductGenerator(adminProducts, { category, search });
+        loadMoreProducts({ reset: true });
+        toast(adminProducts.length ? "Using local + generated catalog" : "Using generated catalog", "success");
+      }
+    }
+
+    function openModal(product) {
+      state.selectedProduct = product;
+      el.modalImage.src = product.image;
+      el.modalImage.alt = product.name;
+      el.modalCategory.textContent = product.category;
+      el.modalName.textContent = product.name;
+      el.modalDescription.textContent = product.description || "No description available.";
+      el.modalPrice.textContent = formatLE(product.price);
+      el.modalOverlay.classList.add("open");
+    }
+
+    function closeModal() {
+      el.modalOverlay.classList.remove("open");
+      state.selectedProduct = null;
+    }
+
+    function setupFakeOrderHistory() {
+      const fake = [
+        { category: "Computers & AI", item: "Mechanical Keyboard - TKL", status: "Delivered", total: 2290 },
+        { category: "Engineering", item: "Electronics Prototyping Kit", status: "In Transit", total: 1680 },
+        { category: "Pharmacy", item: "Pharmacology Review Atlas", status: "Delivered", total: 930 },
+        { category: "Nursing", item: "Clinical Nursing Starter Kit", status: "In Transit", total: 1140 },
+        { category: "Business Administration", item: "Presentation Clicker Remote", status: "Delivered", total: 685 }
+      ];
+
+      const grouped = fake.reduce((acc, order) => {
+        if (!acc[order.category]) {
+          acc[order.category] = [];
+        }
+        acc[order.category].push(order);
+        return acc;
+      }, {});
+
+      el.orderHistory.innerHTML = Object.entries(grouped).map(([category, orders]) => {
+        return `
+          <div style="margin-bottom: 14px;">
+            <h4>${category}</h4>
+            ${orders.map((order) => {
+              const statusClass = order.status === "Delivered" ? "delivered" : "transit";
+              return `
+                <div class="order-row">
+                  <strong>${order.item}</strong>
+                  <span>${formatLE(order.total)}</span>
+                  <span class="status ${statusClass}">${order.status}</span>
+                </div>
+              `;
+            }).join("")}
+          </div>
+        `;
+      }).join("");
+    }
+
+    function bindEvents() {
+      el.menuNav.addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-page]");
+        if (!button) {
+          return;
+        }
+        showPage(button.dataset.page);
+      });
+
+      el.mobileNavToggle.addEventListener("click", () => {
+        el.sidebar.classList.toggle("open");
+      });
+
+      el.searchForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const query = el.searchInput.value.trim();
+        if (!query) {
+          toast("Type a keyword first", "error");
+          return;
+        }
+        fetchProducts({ search: query });
+      });
+
+      el.homeCategoryGrid.addEventListener("click", (event) => {
+        const card = event.target.closest("[data-category]");
+        if (!card) {
+          return;
+        }
+        fetchProducts({ category: card.dataset.category });
+      });
+
+      el.filterPills.addEventListener("click", (event) => {
+        const pill = event.target.closest("[data-filter-category]");
+        if (!pill) {
+          return;
+        }
+        fetchProducts({ category: pill.dataset.filterCategory });
+      });
+
+      el.productsGrid.addEventListener("click", (event) => {
+        const addButton = event.target.closest("[data-add-id]");
+        if (addButton) {
+          const product = state.products.find((item) => item.id === addButton.dataset.addId);
+          if (product) {
+            addToCart(product);
+          }
+          return;
+        }
+
+        const viewButton = event.target.closest("[data-view-id]");
+        if (viewButton) {
+          const product = state.products.find((item) => item.id === viewButton.dataset.viewId);
+          if (product) {
+            openModal(product);
+          }
+        }
+      });
+
+      el.featuredRail.addEventListener("click", (event) => {
+        const card = event.target.closest("[data-product-id]");
+        if (!card) {
+          return;
+        }
+        const product = state.featured.find((item) => item.id === card.dataset.productId);
+        if (product) {
+          openModal(product);
+        }
+      });
+
+      el.closeModalBtn.addEventListener("click", closeModal);
+      el.modalOverlay.addEventListener("click", (event) => {
+        if (event.target === el.modalOverlay) {
+          closeModal();
+        }
+      });
+
+      el.modalAddToCartBtn.addEventListener("click", () => {
+        if (!state.selectedProduct) {
+          return;
+        }
+        addToCart(state.selectedProduct);
+      });
+
+      el.cartToggle.addEventListener("click", () => {
+        el.cartDrawer.classList.add("open");
+      });
+
+      el.closeCartBtn.addEventListener("click", () => {
+        el.cartDrawer.classList.remove("open");
+      });
+
+      el.cartItems.addEventListener("click", (event) => {
+        const removeBtn = event.target.closest("[data-remove-id]");
+        if (!removeBtn) {
+          return;
+        }
+        removeFromCart(removeBtn.dataset.removeId);
+      });
+
+      el.checkoutBtn.addEventListener("click", () => {
+        if (!state.cart.length) {
+          toast("Cart is empty", "error");
+          return;
+        }
+        toast("Checkout flow is frontend demo only", "success");
+      });
+
+      el.contactForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        el.contactForm.reset();
+        toast("Message sent successfully", "success");
+      });
+
+      el.themeToggle.addEventListener("click", () => {
+        const current = document.body.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        if (current === "dark") {
+          document.body.setAttribute("data-theme", "dark");
+          localStorage.setItem("rst-theme", "dark");
+        } else {
+          document.body.removeAttribute("data-theme");
+          localStorage.setItem("rst-theme", "light");
+        }
+      });
+
+      el.browseCategoriesBtn.addEventListener("click", () => {
+        document.getElementById("homeCategoryGrid").scrollIntoView({ behavior: "smooth" });
+      });
+
+      el.openProductsBtn.addEventListener("click", () => {
+        fetchProducts({ category: CATEGORIES[0] });
+      });
+
+      window.addEventListener("scroll", maybeLoadMoreProductsOnScroll, { passive: true });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeModal();
+          el.cartDrawer.classList.remove("open");
+        }
+      });
+    }
+
+    function autoScrollFeatured() {
+      setInterval(() => {
+        if (!state.featured.length) {
+          return;
+        }
+        const rail = el.featuredRail;
+        const next = rail.scrollLeft + 260;
+        if (next + rail.clientWidth >= rail.scrollWidth) {
+          rail.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          rail.scrollTo({ left: next, behavior: "smooth" });
+        }
+      }, 4200);
+    }
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem("rst-theme");
+      if (savedTheme === "dark") {
+        document.body.setAttribute("data-theme", "dark");
+      }
+    }
+
+    function init() {
+      initTheme();
+      renderCategoryCards();
+      updateCartUI();
+      setupFakeOrderHistory();
+      bindEvents();
+      fetchFeatured();
+      autoScrollFeatured();
+      fetchProducts({ category: "Computers & AI" });
+      showPage("home");
+    }
+
+    init();
+  </script>
+</body>
+</html>
+

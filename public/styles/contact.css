@@ -1,0 +1,50 @@
+.contact-card {
+  padding: 16px;
+}
+
+.contact-card h4 {
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+  font-family: "Sora", sans-serif;
+}
+
+.contact-form {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.field {
+  display: grid;
+  gap: 5px;
+}
+
+.field label {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.field input,
+.field textarea {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg);
+  color: var(--text);
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 0.93rem;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: color-mix(in srgb, var(--primary) 50%, var(--line));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+.field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
